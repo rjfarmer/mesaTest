@@ -59,7 +59,7 @@ class config():
 		self.log_file=''
 		
 		#Utils
-		self.silent=False
+		self.silent=True
 		if self.silent:
 			self.silent_file=open(os.devnull, 'wb')
 		else:
