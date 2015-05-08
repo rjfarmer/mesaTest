@@ -92,6 +92,10 @@ class config():
 		
 	def cleanup(self):
 		shutil.rmtree(self.build_fold,ignore_errors=True)
+		try:
+			self.silent_file.close()
+		except:
+			pass
 		
 	def runComNull(self,command):
 		with open(os.devnull, 'w') as devnull:
