@@ -33,7 +33,7 @@ class logger():
 		
 	def writeLog(self,cfg):
 		with open(cfg.log_file,'a') as f:
-			print(cfg.version,cfg.check_pass,cfg.build_pass,cfg.build_file_err,end=' ',file=f)
+			print(cfg.svn_version,cfg.check_pass,cfg.build_pass,cfg.build_file_err,end=' ',file=f)
 			outStr=''
 			for i in cfg.test_names:
 				for j in cfg.test_res:

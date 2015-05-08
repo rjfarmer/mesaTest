@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#Note its this is both python2.7 and 3 compatible
+#Note its this is both python2.7 and 3 compatible (other versions may work)
 
 #Copyright (c) 2015, Robert Farmer rjfarmer@asu.edu
 
@@ -18,6 +18,7 @@
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from __future__ import print_function
+import inputCfg
 import config
 import checkout as c
 import log as l
@@ -25,9 +26,14 @@ import build as b
 import test as t
 
 cfg=config.config()
+inp=inputCfg.inputProcess(cfg)
+
+inp.cmdLineArgs.mode
+exit()
+
 
 cfg.test_names=['0.001M_tau1_atm','15M_dynamo']
-cfg.version_list=["cabecd188bb18003ada7c9470d005ac007d1be2c","597e4d662bb9f56cc9f1005d00210293072b5066","1d85989ad07126f1c11264b2ea4e0f80ab9fe1eb"]
+cfg.version_list=["cabecd188bb18003ada7c9470d005ac007d1be2c","597e4d662bb9f56cc9f1005d00210293072b5066"]
 cfg.log_file='/home/rob/Desktop/mesaTest.log'
 cfg.temp_fold='/media/data/mesa/temp/'
 cfg.vcs_mode='git'

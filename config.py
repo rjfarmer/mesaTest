@@ -36,6 +36,7 @@ class config():
 		self.mesa_path=''
 		self.mesassdk_path=''
 		self.omp_num_threads=0
+		self.svn_version=-1
 		
 		
 		#Checkout
@@ -57,6 +58,7 @@ class config():
 		#Utils
 		self.silent=True
 		self.silent_file=open('log.txt', 'wb')
+		self.debug=False
 		#self.silent_file=open(os.devnull, 'wb')
 	
 	def setPaths(self):
