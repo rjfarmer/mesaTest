@@ -20,15 +20,27 @@ import sys
 import config
 import argparse
 
+try:
+	import ConfigParser as cParse
+except ImportError:
+	import configparser as cParse
+
 class inputProcess():
 	def __init__(self,cfg):
 		self.setCmdLine(cfg)
+		self.loadCfgFile(cfg)
+		self.mergeCfgs(cfg)
 	
 	def loadCfgFile(self,cfg):
-		pass
+		if self.cmdLineArgs.config_file is not None:
+			self.inConfig=cParse.ConfigParser()
+			self.inConfig.read(self.cmdLineArgs.config_file)
+		else:
+			self.inConfig=None
 	
 	def setCmdLine(self,cfg):
-		parser = argparse.ArgumentParser(description='Downloads, builds and tests MESAstar')
+		parser = argparse.ArgumentParser(description='Downloads, builds and tests MESAstar',
+													epilog="Command line options override those in the config-file")
 		
 		parser.add_argument("-v","--verbosity", help="Increase output verbosity", action="count")
 		parser.add_argument("--verbosity-file",help="File to store verbose output (Default stdout)", nargs='?', type=argparse.FileType('w'),
@@ -45,5 +57,11 @@ class inputProcess():
 		parser.add_argument('--mesasdk',type=str,help="MESASDK path",metavar='')
 		parser.add_argument('--omp',type=int,help="OMP_NUM_THREADS",metavar='')
 		
-		parser.add_argument('-f','--config-file',type=str,help="Config file to read input parameters from, rather than from stdin",metavar='')
+		parser.add_argument('-f','--config-file',type=str,help="Config file to read input parameters from (.ini file)",metavar='')
 		self.cmdLineArgs = parser.parse_args()
+		
+	def setDefaults(self,cfg):
+		pass
+	
+	def mergeCfgs(self,cfg):
+		pass

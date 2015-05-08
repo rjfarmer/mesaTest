@@ -28,21 +28,27 @@ import test as t
 cfg=config.config()
 inp=inputCfg.inputProcess(cfg)
 
-inp.cmdLineArgs.mode
-exit()
-
-
+#test suites to run
 cfg.test_names=['0.001M_tau1_atm','15M_dynamo']
-cfg.version_list=["cabecd188bb18003ada7c9470d005ac007d1be2c","597e4d662bb9f56cc9f1005d00210293072b5066"]
+#cfg.version_list=["cabecd188bb18003ada7c9470d005ac007d1be2c","597e4d662bb9f56cc9f1005d00210293072b5066"]
+
+#List of versions
+cfg.version_list=["7518","7525"]
+#Results
 cfg.log_file='/home/rob/Desktop/mesaTest.log'
+#Somewhere to build MESA
 cfg.temp_fold='/media/data/mesa/temp/'
-cfg.vcs_mode='git'
-cfg.vcs_git_base_folder='/media/data/mesa/mesa/dev/'
 
 cfg.mesasdk_root='/media/data/mesa/sdk/mesasdk-20141212'
 cfg.omp_num_threads='8'
 
+#Ignore for now
+cfg.vcs_mode='svn'
+cfg.vcs_git_base_folder='/media/data/mesa/mesa/dev/'
+
+
 for cfg.version in cfg.version_list:
+	print("Running "+cfg.version)
 	cfg.setDefaults()
 	cfg.setPaths()
 	log=l.logger(cfg)

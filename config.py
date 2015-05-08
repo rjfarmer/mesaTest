@@ -18,6 +18,7 @@ from __future__ import print_function
 import os
 import subprocess
 import shutil
+import sys
 
 class config():
 	def __init__(self):
@@ -44,8 +45,10 @@ class config():
 		#Git
 		self.vcs_git_base_folder=''
 		#svn
-		self.vcs_svn_url=''
+		self.vcs_svn_url='svn://svn.code.sf.net/p/mesa/code/trunk'
 		self.check_pass=False
+		
+		self.prefix_build_fold='mesa-test-'
 		
 		#Test
 		self.test_names=[]
@@ -56,13 +59,16 @@ class config():
 		self.log_file=''
 		
 		#Utils
-		self.silent=True
-		self.silent_file=open('log.txt', 'wb')
+		self.silent=False
+		if self.silent:
+			self.silent_file=open(os.devnull, 'wb')
+		else:
+			#self.silent_file=open("mesaTest.stderr", 'wb')
+			self.silent_file=sys.stdout
 		self.debug=False
-		#self.silent_file=open(os.devnull, 'wb')
 	
 	def setPaths(self):
-		self.build_fold=os.path.join(self.temp_fold,'mesa-test-'+self.version)
+		self.build_fold=os.path.join(self.temp_fold,self.prefix_build_fold+self.version)
 		self.build_log_file=os.path.join(self.build_fold,'build.log')
 		
 		self.mesa_path=self.build_fold

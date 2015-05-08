@@ -87,14 +87,19 @@ class git():
 		#cfg.svn_version_all=version
 		
 class svn():
-	def __init__(self):
+	def __init__(self,cfg):
 		pass
 	
-	def pre(self):
-		pass
+	def pre(self,cfg):
+		self.cwd= os.getcwd()
+		os.chdir(cfg.temp_fold)
+		cfg.svn_version=cfg.version
 
-	def checkout(self):
-		pass
+	def checkout(self,cfg):
+		p=subprocess.call('svn co -r '+cfg.version+' '+cfg.vcs_svn_url+' '+cfg.build_fold,
+								shell=True,stdout=cfg.silent_file,stderr=cfg.silent_file)
+		if os.path.isdir(cfg.build_fold) and p==0:
+			cfg.check_pass=True
 	
-	def post(self):
-		pass
+	def post(self,cfg):
+		os.chdir(self.cwd)
