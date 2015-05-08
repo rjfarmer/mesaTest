@@ -39,7 +39,7 @@ class build():
 		
 	def build(self,cfg):
 		with open(cfg.build_log_file,'w') as f:
-			p=subprocess.call('./install', shell=True,stdout=f,stderr=f)
+			p=subprocess.call('./install', shell=True,stdout=f,stderr=f,executable="/bin/bash")
 		self._checkBuild(cfg)
 		
 	def post(self,cfg):

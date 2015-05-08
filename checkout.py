@@ -64,13 +64,13 @@ class git():
 	def _getSVNByHash(self,cfg,gitHash):
 		x=subprocess.check_output('git --work-tree '+cfg.vcs_git_base_folder
 											+' --git-dir '+os.path.join(cfg.vcs_git_base_folder,'.git')+
-											' show -s --format=%B '+str(gitHash),shell=True)
+											' show -s --format=%B '+str(gitHash),shell=True,executable="/bin/bash")
 		return int(x.decode().split(' ')[-2].split('@')[-1])
 		
 	def _getAllHashs(self,cfg):
 		cfg.git_hash_all=subprocess.check_output('git --work-tree '+cfg.vcs_git_base_folder
 											+' --git-dir '+os.path.join(cfg.vcs_git_base_folder,'.git')+
-											' log --pretty=format:"%H" git-svn',shell=True)
+											' log --pretty=format:"%H" git-svn',shell=True,executable="/bin/bash")
 		cfg.git_hash_all=cfg.git_hash_all.decode().split('\n')
 		#Invert list as oldest commit is last in list
 		cfg.git_hash_all=cfg.git_hash[::-1]
@@ -97,7 +97,7 @@ class svn():
 
 	def checkout(self,cfg):
 		p=subprocess.call('svn co -r '+cfg.version+' '+cfg.vcs_svn_url+' '+cfg.build_fold,
-								shell=True,stdout=cfg.silent_file,stderr=cfg.silent_file)
+								shell=True,stdout=cfg.silent_file,stderr=cfg.silent_file,executable="/bin/bash")
 		if os.path.isdir(cfg.build_fold) and p==0:
 			cfg.check_pass=True
 	

@@ -99,7 +99,7 @@ class config():
 		
 	def runComNull(self,command):
 		with open(os.devnull, 'w') as devnull:
-			p=subprocess.call(command, shell=True,stdout=self.silent_file,stderr=self.silent_file)
+			p=subprocess.call(command, shell=True,stdout=self.silent_file,stderr=self.silent_file,executable="/bin/bash")
 		if p is not 0:
 			return False
 		return True
