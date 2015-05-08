@@ -5,8 +5,10 @@ Requires python (2.7 or 3)
 No other packages are needed
 
 ##Run:
+````bash
 chmod u+x /path/to/folder/main.py
 /path/to/folder/main.py
+````
 
 ##Settings
 Currently parameters are hardcoded in main.py
