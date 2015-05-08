@@ -40,7 +40,7 @@ class inputProcess():
 	
 	def setCmdLine(self,cfg):
 		parser = argparse.ArgumentParser(description='Downloads, builds and tests MESAstar',
-													epilog="Command line options override those in the config-file")
+													epilog="Options dont work yet, hardcode in main.py\nCommand line options override those in the config-file")
 		
 		parser.add_argument("-v","--verbosity", help="Increase output verbosity", action="count")
 		parser.add_argument("--verbosity-file",help="File to store verbose output (Default stdout)", nargs='?', type=argparse.FileType('w'),
