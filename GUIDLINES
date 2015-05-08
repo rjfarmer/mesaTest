@@ -1,0 +1,4 @@
+GUIDELINES:
+
+Must depend only on python stdlib libraries
+Must work with python 2.7 and python 3.? (Other versions are optional if easily maintained)

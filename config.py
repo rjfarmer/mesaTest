@@ -14,9 +14,10 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
+from __future__ import print_function
 import os
 import subprocess
+import shutil
 
 class config():
 	def __init__(self):
@@ -48,6 +49,7 @@ class config():
 		#Test
 		self.test_names=[]
 		self.test_res=[]
+		self.test_rerun=5
 		
 		#Logging
 		self.log_file=''
@@ -76,12 +78,12 @@ class config():
 			with open(version_path,'r') as f:
 				mesa_version=f.readline()
 				if len(mesa_version)>0:
-					selmesa_version=int(mesa_version)
+					self.mesa_version=int(mesa_version)
 		except IOError:
 			raise ValueError("Cant read "+version_path)
 		
 	def cleanup(self):
-		os.rmdir(self.build_fold)
+		shutil.rmtree(self.build_fold,ignore_errors=True)
 		
 	def runComNull(self,command):
 		with open(os.devnull, 'w') as devnull:
@@ -89,3 +91,13 @@ class config():
 		if p is not 0:
 			return False
 		return True
+		
+	def setDefaults(self):
+		#Build
+		self.build_fold=''
+		self.mesa_version=''
+		self.build_pass=False
+		self.build_file_err='"N/A"'
+		self.mesa_path=''
+		self.check_pass=False
+		self.test_res=[]

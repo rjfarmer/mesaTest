@@ -14,10 +14,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
+from __future__ import print_function
 import os
 import subprocess
-
 
 class checkout():
 	def __init__(self,cfg):
@@ -27,17 +26,16 @@ class checkout():
 		else:
 			vcs=svn(cfg)
 			
-		vcs.pre(cfg)
-		vcs.checkout(cfg)
-		vcs.post(cfg)
+		try:
+			vcs.pre(cfg)
+			vcs.checkout(cfg)
+			vcs.post(cfg)
+		except:
+			cfg.check_pass=False
 	
 class git():
 	def __init__(self,cfg):
 		pass
-		
-	def _setGitPaths(self,folder):
-		os.environ["GIT_WORK_TREE"] = folder
-		os.environ["GIT_DIR"] =os.path.join(folder,'.git')
 		
 	def pre(self,cfg):
 		self.cwd= os.getcwd()
@@ -46,10 +44,10 @@ class git():
 	def checkout(self,cfg):
 		p=subprocess.call('git clone '+cfg.vcs_git_base_folder+' '+cfg.build_fold,shell=True,
 							stdout=cfg.silent_file,stderr=cfg.silent_file)
-		if p==0:
+		#Check folder was made
+		if os.path.isdir(cfg.build_fold) and p==0:
 			cwd= os.getcwd()
 			os.chdir(cfg.build_fold)
-			self._setGitPaths('')
 			p2=subprocess.call('git checkout '+str(cfg.version),shell=True,
 								stdout=cfg.silent_file,stderr=cfg.silent_file)
 			if p2==0:

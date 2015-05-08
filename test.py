@@ -19,10 +19,11 @@ from __future__ import print_function
 import os
 import subprocess
 import time
+import math
 
 class test():
 	def __init__(self,cfg):
-		if cfg.build_pass:
+		if cfg.build_pass and cfg.check_pass:
 			cfg.testsuite=os.path.join(cfg.build_fold,'star','test_suite')
 			for i in cfg.test_names:
 				cfg.curr_test=i
@@ -51,12 +52,20 @@ class test():
 		self.build=cfg.runComNull('./mk')
 		
 	def _runTest(self,cfg):
-		start=time.time()
-		retCode=cfg.runComNull('./rn')
-		end=time.time()
-		self.run=retCode
-		if retCode:
-			self.time=end-start
+		timeres=[]
+		for i in range(0,cfg.test_rerun):
+			start=time.time()
+			retCode=cfg.runComNull('./rn')
+			end=time.time()
+			self.run=retCode
+			if retCode:
+				timeres.append(end-start)
+			else:
+				timeres=-1
+				break
+		
+		if timeres is not -1:
+			self.time=math.fsum(timeres)/(cfg.test_rerun*1.0)
 		else:
 			self.time=-1
 		

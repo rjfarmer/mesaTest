@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#Note its this is both python2.7 and 3 compatible
+
 #Copyright (c) 2015, Robert Farmer rjfarmer@asu.edu
 
 #This program is free software; you can redistribute it and/or
@@ -14,7 +17,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
+from __future__ import print_function
 import config
 import checkout as c
 import log as l
@@ -33,20 +36,15 @@ cfg.vcs_git_base_folder='/media/data/mesa/mesa/dev/'
 cfg.mesasdk_root='/media/data/mesa/sdk/mesasdk-20141212'
 cfg.omp_num_threads='8'
 
+for cfg.version in cfg.version_list:
+	cfg.setDefaults()
+	cfg.setPaths()
+	log=l.logger(cfg)
+	check=c.checkout(cfg)
+	gb=b.build(cfg)
+	tt=t.test(cfg)
+	log.writeLog(cfg)
+	cfg.cleanup()
+	print("Done "+cfg.version)
 
-i=cfg.version_list[0]
-cfg.version=i
-cfg.setPaths()
-
-log=l.logger(cfg)
-check=c.checkout(cfg)
-gb=b.build(cfg)
-
-
-tt=t.test(cfg)
-
-
-log.writeLog(cfg)
-if not cfg.silent:
-	print("Done "+i)
 

@@ -22,9 +22,13 @@ import subprocess
 class build():
 	def __init__(self,cfg):
 		if cfg.check_pass:
-			self.pre(cfg)
-			self.build(cfg)
-			self.post(cfg)
+			try:
+				self.pre(cfg)
+				self.build(cfg)
+				self.post(cfg)
+			except:
+				raise
+				#cfg.build_pass=False
 		else:
 			cfg.build_pass=False
 		
@@ -34,13 +38,14 @@ class build():
 		
 	def build(self,cfg):
 		with open(cfg.build_log_file,'w') as f:
-			with subprocess.Popen('./install', shell=True,
-											stdout=subprocess.PIPE,stderr=subprocess.STDOUT, 
-											bufsize=1, universal_newlines=True) as p:
-				for line in p.stdout:
-					if "exported" in line and not cfg.silent:
-						print(line.replace('\n',''),file=cfg.silent_file)
-					f.write(line)
+			#with subprocess.Popen('./install', shell=True,
+											#stdout=subprocess.PIPE,stderr=subprocess.STDOUT, 
+											#universal_newlines=True) as p:
+				#for line in p.stdout:
+					#if "exported" in line and not cfg.silent:
+						#print(line.replace('\n',''),file=cfg.silent_file)
+					#f.write(line)
+			p=subprocess.call('./install', shell=True,stdout=f,stderr=f)
 		self._checkBuild(cfg)
 		
 	def post(self,cfg):

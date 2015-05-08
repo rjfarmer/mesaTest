@@ -38,7 +38,7 @@ class logger():
 			for i in cfg.test_names:
 				for j in cfg.test_res:
 					if i==j[0]:
-						outStr.join(j[1]+' '+j[2]+' ')
+						outStr+=str(j[1])+' '+str(round(j[2],3))+' '
 			print(outStr,file=f)
 	
 	def writeLogHeader(self,cfg):

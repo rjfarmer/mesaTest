@@ -1,0 +1,5 @@
+TODO:
+Write input parser and input config file
+Write svn checkout
+Write checks to look for new version of mesa
+Add plotting script
