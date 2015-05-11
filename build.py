@@ -54,7 +54,7 @@ class build():
 				if "Error:" in line:
 					lineErr=lines[ind-4]
 					cfg.build_file_err=lineErr.split(':')[0].split('/')[-1]
-					break
+					return
 			cfg.build_pass=True
 		return
 		
