@@ -103,3 +103,15 @@ class svn():
 	
 	def post(self,cfg):
 		os.chdir(self.cwd)
+
+		
+	def getLatestVersion(self,cfg):
+		p=subprocess.check_output('svn info '+cfg.vcs_svn_url+' -r HEAD',shell=True,stderr=cfg.silent_file,executable="/bin/bash")
+		pl=p.decode().split()
+		ind=pl.index('Revision:')
+		return pl[ind+1]
+		
+			
+		
+		
+		
